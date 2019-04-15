@@ -1,0 +1,15 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://47.101.168.240:8761/eureka
+  #
+  #  datasource:
+  #    username: root
+  #    password: root
+  #    url: jdbc:mysql:127.0.0.1:3306/y2_mybatis?charcterEncoding=utf-8&useSSL=false
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8086
+spring:
+  application:
+    name: backstage
