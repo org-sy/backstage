@@ -6,6 +6,7 @@
         <groupId>com.sy.interestingvideo</groupId>
         <artifactId>backstage</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>controller</artifactId>
@@ -39,7 +40,10 @@
             <version>2.1.4.RELEASE</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
