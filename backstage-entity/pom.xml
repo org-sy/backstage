@@ -9,7 +9,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>entity</artifactId>
+    <artifactId>backstage-entity</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>backstage-entity</name>
 
@@ -27,7 +27,7 @@
 
         <dependency>
             <groupId>com.sy.interestingvideo</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>backstage-common</artifactId>
         </dependency>
     </dependencies>
 

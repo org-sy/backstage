@@ -13,3 +13,8 @@ server:
 spring:
   application:
     name: backstage
+  cloud:
+    config:
+      profile: test
+      discovery:
+        service-id: CONFIG
