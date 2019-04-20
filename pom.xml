@@ -28,6 +28,10 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
         <common.version>0.0.1-SNAPSHOT</common.version>
+        <entity.version>0.0.1-SNAPSHOT</entity.version>
+        <repository.version>0.0.1-SNAPSHOT</repository.version>
+        <controller.version>0.0.1-SNAPSHOT</controller.version>
+        <service.version>0.0.1-SNAPSHOT</service.version>
     </properties>
 
     <dependencyManagement>
