@@ -455,7 +455,7 @@ $.extend($.jgrid,{
 										if($("#fbox_"+$t.p.id)[0].p) {
 											var cols = $("#fbox_"+$t.p.id)[0].p.columns, nm;
 											$.each(cols,function(i) {
-												nm  =  this.index || this.name;
+												nm  =  this.center || this.name;
 												if(options.name === nm) {
 													this.searchoptions.dataUrl = null;
 													this.searchoptions.value = oV;

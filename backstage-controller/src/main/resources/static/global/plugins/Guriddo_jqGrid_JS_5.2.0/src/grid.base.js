@@ -582,7 +582,7 @@ $.extend($.jgrid,{
 			var nrec= data.length;
 			// overhead, but we do not change the original data.
 			while(j<nrec) {
-				i = _sortData[j].index;
+				i = _sortData[j].center;
 				sortData.push(data[i]);
 				j++;
 			}
@@ -2207,7 +2207,7 @@ $.fn.jqGrid = function( pin ) {
 			var grpview = ts.p.grouping ? ts.p.groupingView : false, lengrp, gin, si;
 			$.each(ts.p.colModel,function(){
 				sorttype = this.sorttype || "text";
-				si = this.index || this.name;
+				si = this.center || this.name;
 				if(sorttype === "date" || sorttype === "datetime") {
 					if(this.formatter && typeof this.formatter === 'string' && this.formatter === 'date') {
 						if(this.formatoptions && this.formatoptions.srcformat) {
@@ -2547,8 +2547,8 @@ $.fn.jqGrid = function( pin ) {
 					for(gi=0;gi<grp.groupField.length;gi++) {
 						var index = grp.groupField[gi];
 						$.each(ts.p.colModel, function(cmIndex, cmValue) {
-							if (cmValue.name === index && cmValue.index){
-								index = cmValue.index;
+							if (cmValue.name === index && cmValue.center){
+								index = cmValue.center;
 							}
 						} );
 						gs += index +" "+grp.groupOrder[gi]+", ";
@@ -2815,7 +2815,7 @@ $.fn.jqGrid = function( pin ) {
 					selTh = ts.p.frozenColumns ?  obj : ts.grid.headers[iCol].el, so="", sn;
 			$("span.ui-grid-ico-sort",selTh).addClass(disabled);
 			$(selTh).attr("aria-selected","false");
-			sn = (cm[iCol].index || cm[iCol].name);
+			sn = (cm[iCol].center || cm[iCol].name);
 			if ( typeof sor == "undefined" )
 			{
 				if(cm[iCol].lso) {
@@ -2935,7 +2935,7 @@ $.fn.jqGrid = function( pin ) {
 					}
 				}
 				index = index.substring(5 + ts.p.id.length + 1); // bad to be changed!?!
-				ts.p.sortname = ts.p.colModel[idxcol].index || index;
+				ts.p.sortname = ts.p.colModel[idxcol].center || index;
 			}
 			if ($(ts).triggerHandler("jqGridSortCol", [ts.p.sortname, idxcol, ts.p.sortorder]) === 'stop') {
 				ts.p.lastsort = idxcol;
@@ -3157,7 +3157,7 @@ $.fn.jqGrid = function( pin ) {
 			if( v1 ) {
 				df = v1;
 			}
-			var soptions = $.extend(cm.searchoptions, {name:cm.index || cm.name, id: "sval1_" + ts.p.idPrefix+cm.name, oper:'search'}),
+			var soptions = $.extend(cm.searchoptions, {name:cm.center || cm.name, id: "sval1_" + ts.p.idPrefix+cm.name, oper:'search'}),
 			input = $.jgrid.createEl.call(ts, cm.stype, soptions , df, false, $.extend({},$.jgrid.ajaxOptions, ts.p.ajaxSelectOptions || {}));
 			$(input).addClass( colmenustyle.filter_input );
 			str1 = $('<div></div>').append(input);
@@ -3186,7 +3186,7 @@ $.fn.jqGrid = function( pin ) {
 			} else {
 				df = "";
 			}
-			soptions = $.extend(cm.searchoptions, {name:cm.index || cm.name, id: "sval2_" + ts.p.idPrefix+cm.name, oper:'search'});
+			soptions = $.extend(cm.searchoptions, {name:cm.center || cm.name, id: "sval2_" + ts.p.idPrefix+cm.name, oper:'search'});
 			input = $.jgrid.createEl.call(ts, cm.stype, soptions , df, false, $.extend({},$.jgrid.ajaxOptions, ts.p.ajaxSelectOptions || {}));
 			$(input).addClass( colmenustyle.filter_input );
 			str1 = $('<div></div>').append(input);
@@ -3488,7 +3488,7 @@ $.fn.jqGrid = function( pin ) {
 				tmpcm.colmenu = (tmpcm.name === "rn" || tmpcm.name === "cb" || tmpcm.name === "subgrid") ? false : true;
 			}
 			thead += "<th id='"+ts.p.id+"_" + tmpcm.name+"' role='columnheader' "+getstyle(stylemodule,'headerBox',false, "ui-th-column ui-th-"+dir)+" "+ tooltip+">";
-			idn = tmpcm.index || tmpcm.name;
+			idn = tmpcm.center || tmpcm.name;
 			thead += "<div class='ui-th-div' id='jqgh_"+ts.p.id+"_"+tmpcm.name+"' "+tdc+">"+ts.p.colNames[i];
 			if(!tmpcm.width)  { 
 				tmpcm.width = 150; 
@@ -5174,7 +5174,7 @@ $.jgrid.extend({
 			if ( !$t.grid ) { return;}
 			if ( !colname ) { colname = $t.p.sortname; }
 			for ( i=0;i<$t.p.colModel.length;i++ ) {
-				if ( $t.p.colModel[i].index === colname || $t.p.colModel[i].name === colname ) {
+				if ( $t.p.colModel[i].center === colname || $t.p.colModel[i].name === colname ) {
 					idx = i;
 					if($t.p.frozenColumns === true && $t.p.colModel[i].frozen === true) {
 						sobj = $t.grid.fhDiv.find("#" + $t.p.id + "_" + colname);

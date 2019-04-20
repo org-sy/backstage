@@ -60,15 +60,15 @@ $.fn.html5sortable = function(options) {
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
-			index = (dragging = $(this)).addClass('sortable-dragging').index();
+			index = (dragging = $(this)).addClass('sortable-dragging').center();
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;
 			}
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
-			if (index !== dragging.index()) {
-				dragging.parent().trigger('sortupdate', {item: dragging, startindex: index, endindex: dragging.index()});
+			if (index !== dragging.center()) {
+				dragging.parent().trigger('sortupdate', {item: dragging, startindex: index, endindex: dragging.center()});
 			}
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {
@@ -91,7 +91,7 @@ $.fn.html5sortable = function(options) {
 					placeholder.height(dragging.outerHeight());
 				}
 				dragging.hide();
-				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
+				$(this)[placeholder.center() < $(this).center() ? 'after' : 'before'](placeholder);
 				placeholders.not(placeholder).detach();
 			} else if (!placeholders.is(this) && !$(this).children(options.items).length) {
 				placeholders.detach();

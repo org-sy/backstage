@@ -577,7 +577,7 @@ $.extend($.jgrid,{
 			var nrec= data.length;
 			// overhead, but we do not change the original data.
 			while(j<nrec) {
-				i = _sortData[j].index;
+				i = _sortData[j].center;
 				sortData.push(data[i]);
 				j++;
 			}
@@ -2202,7 +2202,7 @@ $.fn.jqGrid = function( pin ) {
 			var grpview = ts.p.grouping ? ts.p.groupingView : false, lengrp, gin, si;
 			$.each(ts.p.colModel,function(){
 				sorttype = this.sorttype || "text";
-				si = this.index || this.name;
+				si = this.center || this.name;
 				if(sorttype === "date" || sorttype === "datetime") {
 					if(this.formatter && typeof this.formatter === 'string' && this.formatter === 'date') {
 						if(this.formatoptions && this.formatoptions.srcformat) {
@@ -2542,8 +2542,8 @@ $.fn.jqGrid = function( pin ) {
 					for(gi=0;gi<grp.groupField.length;gi++) {
 						var index = grp.groupField[gi];
 						$.each(ts.p.colModel, function(cmIndex, cmValue) {
-							if (cmValue.name === index && cmValue.index){
-								index = cmValue.index;
+							if (cmValue.name === index && cmValue.center){
+								index = cmValue.center;
 							}
 						} );
 						gs += index +" "+grp.groupOrder[gi]+", ";
@@ -2810,7 +2810,7 @@ $.fn.jqGrid = function( pin ) {
 					selTh = ts.p.frozenColumns ?  obj : ts.grid.headers[iCol].el, so="", sn;
 			$("span.ui-grid-ico-sort",selTh).addClass(disabled);
 			$(selTh).attr("aria-selected","false");
-			sn = (cm[iCol].index || cm[iCol].name);
+			sn = (cm[iCol].center || cm[iCol].name);
 			if ( typeof sor == "undefined" )
 			{
 				if(cm[iCol].lso) {
@@ -2930,7 +2930,7 @@ $.fn.jqGrid = function( pin ) {
 					}
 				}
 				index = index.substring(5 + ts.p.id.length + 1); // bad to be changed!?!
-				ts.p.sortname = ts.p.colModel[idxcol].index || index;
+				ts.p.sortname = ts.p.colModel[idxcol].center || index;
 			}
 			if ($(ts).triggerHandler("jqGridSortCol", [ts.p.sortname, idxcol, ts.p.sortorder]) === 'stop') {
 				ts.p.lastsort = idxcol;
@@ -3152,7 +3152,7 @@ $.fn.jqGrid = function( pin ) {
 			if( v1 ) {
 				df = v1;
 			}
-			var soptions = $.extend(cm.searchoptions, {name:cm.index || cm.name, id: "sval1_" + ts.p.idPrefix+cm.name, oper:'search'}),
+			var soptions = $.extend(cm.searchoptions, {name:cm.center || cm.name, id: "sval1_" + ts.p.idPrefix+cm.name, oper:'search'}),
 			input = $.jgrid.createEl.call(ts, cm.stype, soptions , df, false, $.extend({},$.jgrid.ajaxOptions, ts.p.ajaxSelectOptions || {}));
 			$(input).addClass( colmenustyle.filter_input );
 			str1 = $('<div></div>').append(input);
@@ -3181,7 +3181,7 @@ $.fn.jqGrid = function( pin ) {
 			} else {
 				df = "";
 			}
-			soptions = $.extend(cm.searchoptions, {name:cm.index || cm.name, id: "sval2_" + ts.p.idPrefix+cm.name, oper:'search'});
+			soptions = $.extend(cm.searchoptions, {name:cm.center || cm.name, id: "sval2_" + ts.p.idPrefix+cm.name, oper:'search'});
 			input = $.jgrid.createEl.call(ts, cm.stype, soptions , df, false, $.extend({},$.jgrid.ajaxOptions, ts.p.ajaxSelectOptions || {}));
 			$(input).addClass( colmenustyle.filter_input );
 			str1 = $('<div></div>').append(input);
@@ -3483,7 +3483,7 @@ $.fn.jqGrid = function( pin ) {
 				tmpcm.colmenu = (tmpcm.name === "rn" || tmpcm.name === "cb" || tmpcm.name === "subgrid") ? false : true;
 			}
 			thead += "<th id='"+ts.p.id+"_" + tmpcm.name+"' role='columnheader' "+getstyle(stylemodule,'headerBox',false, "ui-th-column ui-th-"+dir)+" "+ tooltip+">";
-			idn = tmpcm.index || tmpcm.name;
+			idn = tmpcm.center || tmpcm.name;
 			thead += "<div class='ui-th-div' id='jqgh_"+ts.p.id+"_"+tmpcm.name+"' "+tdc+">"+ts.p.colNames[i];
 			if(!tmpcm.width)  { 
 				tmpcm.width = 150; 
@@ -5169,7 +5169,7 @@ $.jgrid.extend({
 			if ( !$t.grid ) { return;}
 			if ( !colname ) { colname = $t.p.sortname; }
 			for ( i=0;i<$t.p.colModel.length;i++ ) {
-				if ( $t.p.colModel[i].index === colname || $t.p.colModel[i].name === colname ) {
+				if ( $t.p.colModel[i].center === colname || $t.p.colModel[i].name === colname ) {
 					idx = i;
 					if($t.p.frozenColumns === true && $t.p.colModel[i].frozen === true) {
 						sobj = $t.grid.fhDiv.find("#" + $t.p.id + "_" + colname);
@@ -6487,7 +6487,7 @@ $.extend($.jgrid,{
 										if($("#fbox_"+$t.p.id)[0].p) {
 											var cols = $("#fbox_"+$t.p.id)[0].p.columns, nm;
 											$.each(cols,function(i) {
-												nm  =  this.index || this.name;
+												nm  =  this.center || this.name;
 												if(options.name === nm) {
 													this.searchoptions.dataUrl = null;
 													this.searchoptions.value = oV;
@@ -6874,8 +6874,8 @@ $.fn.jqFilter = function( arg ) {
 			if(!cl.label) {
 				cl.label = cl.name;
 			}
-			if(cl.index) {
-				cl.name = cl.index;
+			if(cl.center) {
+				cl.name = cl.center;
 			}
 			if(!cl.hasOwnProperty('searchoptions')) {
 				cl.searchoptions = {};
@@ -7564,7 +7564,7 @@ $.jgrid.extend({
 				var sdata={}, j=0, v, nm, sopt={},so, ms = false, ssfield = [], bbt =false, sop;
 				$.each($t.p.colModel,function(){
 					var $elem = $("#gs_"+ $t.p.idPrefix + $.jgrid.jqID(this.name), (this.frozen===true && $t.p.frozenColumns === true) ?  $t.grid.fhDiv : $t.grid.hDiv);
-					nm = this.index || this.name;
+					nm = this.center || this.name;
 					sop = this.searchoptions || {};
 					if(p.searchOperators &&  sop.searchOperMenu) {
 						so = $elem.parent().prev().children("a").attr("soper") || p.defaultSearch;
@@ -7697,7 +7697,7 @@ $.jgrid.extend({
 					if(this.searchoptions && this.searchoptions.defaultValue !== undefined) { 
 						v = this.searchoptions.defaultValue; 
 					}
-					nm = this.index || this.name;
+					nm = this.center || this.name;
 					switch (this.stype) {
 						case 'select' :
 							$elem.find("option").each(function (i){
@@ -7861,13 +7861,13 @@ $.jgrid.extend({
 				if(this.searchoptions.searchOperMenu === undefined) {
 					this.searchoptions.searchOperMenu = true;
 				}
-				soptions = $.extend({},this.searchoptions , {name:cm.index || cm.name, id: "gs_"+$t.p.idPrefix+cm.name, oper:'search'});
+				soptions = $.extend({},this.searchoptions , {name:cm.center || cm.name, id: "gs_"+$t.p.idPrefix+cm.name, oper:'search'});
 				if(this.search){
 					if( p.restoreFromFilters && rules) {
 						restores = false;
 						for( var is = 0; is < rules.length; is++) {
 							if(rules[is].field ) {
-								var snm = cm.index || cm.name;
+								var snm = cm.center || cm.name;
 								if( snm === rules[is].field) {
 									restores = rules[is];
 									break;
@@ -8216,7 +8216,7 @@ $.jgrid.extend({
 							ignoreHiding = (n.searchoptions && n.searchoptions.searchhidden === true);
 							if ((ignoreHiding && searchable) || (searchable && !hidden)) {
 								found = true;
-								colnm = n.index || n.name;
+								colnm = n.center || n.name;
 								cmi =i;
 							}
 						}
@@ -8224,7 +8224,7 @@ $.jgrid.extend({
 				} else {
 					columns = p.columns;
 					cmi = 0;
-					colnm = columns[0].index || columns[0].name;
+					colnm = columns[0].center || columns[0].name;
 				}
 				// old behaviour
 				if( (!defaultFilters && colnm) || p.multipleSearch === false  ) {
@@ -8432,7 +8432,7 @@ $.jgrid.extend({
 			val +="";
 			if(!$t.p.datatype === 'local') { return; }
 			$.each($t.p.colModel,function(){
-				nm = this.index || this.name;
+				nm = this.center || this.name;
 				sop = this.searchoptions || {};
 				so  = p.defaultSearch ? p.defaultSearch : (sop.sopt) ? sop.sopt[0] : p.defaultSearch;
 				this.search = this.search === false ? false : true;
@@ -15597,15 +15597,15 @@ $.fn.html5sortable = function(options) {
 			var dt = e.originalEvent.dataTransfer;
 			dt.effectAllowed = 'move';
 			dt.setData('Text', 'dummy');
-			index = (dragging = $(this)).addClass('sortable-dragging').index();
+			index = (dragging = $(this)).addClass('sortable-dragging').center();
 		}).on('dragend.h5s', function() {
 			if (!dragging) {
 				return;
 			}
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
-			if (index !== dragging.index()) {
-				dragging.parent().trigger('sortupdate', {item: dragging, startindex: index, endindex: dragging.index()});
+			if (index !== dragging.center()) {
+				dragging.parent().trigger('sortupdate', {item: dragging, startindex: index, endindex: dragging.center()});
 			}
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {
@@ -15628,7 +15628,7 @@ $.fn.html5sortable = function(options) {
 					placeholder.height(dragging.outerHeight());
 				}
 				dragging.hide();
-				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
+				$(this)[placeholder.center() < $(this).center() ? 'after' : 'before'](placeholder);
 				placeholders.not(placeholder).detach();
 			} else if (!placeholders.is(this) && !$(this).children(options.items).length) {
 				placeholders.detach();

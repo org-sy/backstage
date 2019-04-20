@@ -1,9 +1,10 @@
 package com.sy.interestingvideo.controller.config;
 
 import com.sy.interestingvideo.controller.interceptor.SessionVerifyInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @description:
@@ -13,10 +14,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @SuppressWarnings("all")
 @Configuration
-public class SessionVerifyConfig extends WebMvcConfigurerAdapter {
+public class SessionVerifyConfig implements WebMvcConfigurer {
+	
+	@Autowired
+	private SessionVerifyInterceptor sessionVerifyInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new SessionVerifyInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(sessionVerifyInterceptor).addPathPatterns("/**").excludePathPatterns("/users/login");
 	}
 	
 }

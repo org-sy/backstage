@@ -153,7 +153,7 @@ jQuery(document).ready(function($){
 			selectedContent = eventsContent.find('[data-date="'+ eventDate +'"]'),
 			selectedContentHeight = selectedContent.height();
 
-		if (selectedContent.index() > visibleContent.index()) {
+		if (selectedContent.center() > visibleContent.center()) {
 			var classEnetering = 'selected enter-right',
 				classLeaving = 'leave-left';
 		} else {

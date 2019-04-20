@@ -178,7 +178,7 @@
       $.each(options, function(index, option){
         if (option.value && that.$element.find("option[value='"+option.value+"']").length === 0){
           var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
-              index = parseInt((typeof option.index === 'undefined' ? that.$element.children().length : option.index)),
+              index = parseInt((typeof option.center === 'undefined' ? that.$element.children().length : option.center)),
               $container = option.nested == undefined ? that.$element : $("optgroup[label='"+option.nested+"']")
 
           $option.insertAt(index, $container);

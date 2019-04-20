@@ -203,7 +203,7 @@ $.jgrid.extend({
 				    $.each(colModel, function(i, v) {
 				        var searchable = (typeof v.search === 'undefined') ?  true: v.search ,
 				        hidden = (v.hidden === true),
-						soptions = $.extend({}, {text: colNames[i], itemval: v.index || v.name}, this.searchoptions),
+						soptions = $.extend({}, {text: colNames[i], itemval: v.center || v.name}, this.searchoptions),
 						ignoreHiding = (soptions.searchhidden === true);
 						if(typeof soptions.sopt !== 'undefined') {
 							k=0;
@@ -409,7 +409,7 @@ $.jgrid.extend({
 								tmpFil.label = '';
 							}
 							tmpFil.name = this.name;
-							tmpFil.index = this.index || this.name;
+							tmpFil.index = this.center || this.name;
 							// we support only text and selects, so all other to text
 							tmpFil.stype = this.edittype || 'text';
 							if(tmpFil.stype != 'select' ) {
@@ -426,11 +426,11 @@ $.jgrid.extend({
 					$.each(self.p.filterModel,function(i,n) {
 						for(var j=0;j<gcolMod.length;j++) {
 							if(this.name == gcolMod[j].name) {
-								this.index = gcolMod[j].index || this.name;
+								this.index = gcolMod[j].center || this.name;
 								break;
 							}
 						}
-						if(!this.index) {
+						if(!this.center) {
 							this.index = this.name;
 						}
 					});
@@ -444,7 +444,7 @@ $.jgrid.extend({
                 gr.p.searchdata = {};
 				if($.isFunction(self.p.beforeSearch)){self.p.beforeSearch();}
 				$.each(self.p.filterModel,function(i,n){
-                    nm = this.index;
+                    nm = this.center;
 					if(this.stype === 'select') {
 						v = $("select[name="+nm+"]",self).val();
 						if(v) {
@@ -458,7 +458,7 @@ $.jgrid.extend({
 								$("#jqgh_"+this.name,gr.grid.hDiv).removeClass("dirty-cell");
 							}
                                try {
-                                   delete gr.p.postData[this.index];
+                                   delete gr.p.postData[this.center];
                                } catch (e) {}
 						}
 					} else {
@@ -474,7 +474,7 @@ $.jgrid.extend({
 								$("#jqgh_"+this.name,gr.grid.hDiv).removeClass("dirty-cell");
 							}
 								try {
-									delete gr.p.postData[this.index];
+									delete gr.p.postData[this.center];
                             } catch(x) {}
 						}
 					}
@@ -495,7 +495,7 @@ $.jgrid.extend({
 				var gr = $(self.p.gridid)[0], nm;
 				if($.isFunction(self.p.beforeClear)){self.p.beforeClear();}
 				$.each(self.p.filterModel,function(i,n){
-                    nm = this.index;
+                    nm = this.center;
 					v = (this.defval) ? this.defval : "";
 					if(!this.stype){this.stype='text';}
 					switch (this.stype) {
@@ -521,7 +521,7 @@ $.jgrid.extend({
 									$("#jqgh_"+this.name,gr.grid.hDiv).removeClass("dirty-cell");
 								}
                                 try {
-                                    delete gr.p.postData[this.index];
+                                    delete gr.p.postData[this.center];
                                 } catch (e) {}
 							}
 							break;
@@ -538,7 +538,7 @@ $.jgrid.extend({
 									$("#jqgh_"+this.name,gr.grid.hDiv).removeClass("dirty-cell");
 								}
                                 try {
-                                    delete gr.p.postData[this.index];
+                                    delete gr.p.postData[this.center];
                                 } catch (k) {}
 							}
                             break;
@@ -575,7 +575,7 @@ $.jgrid.extend({
 							// data returned should have already constructed html select
 							$(td).load(this.surl,function(){
 								if($t.defval) { $("select",this).val($t.defval); }
-								$("select",this).attr({name:$t.index || $t.name, id: "sg_"+$t.name});
+								$("select",this).attr({name:$t.center || $t.name, id: "sg_"+$t.name});
 								if($t.sopt) { $("select",this).attr($t.sopt); }
 								if(self.p.gridToolbar===true && $t.width) {
 									$("select",this).width($t.width);
@@ -592,7 +592,7 @@ $.jgrid.extend({
 							if($t.sopt.value) {
 								var oSv = $t.sopt.value;
 								var elem = document.createElement("select");
-								$(elem).attr({name:$t.index || $t.name, id: "sg_"+$t.name}).attr($t.sopt);
+								$(elem).attr({name:$t.center || $t.name, id: "sg_"+$t.name}).attr($t.sopt);
 								var so, sv, ov;
 								if(typeof oSv === "string") {
 									so = oSv.split(";");
@@ -629,7 +629,7 @@ $.jgrid.extend({
 						break;
 					case 'text':
 						var df = this.defval ? this.defval: "";
-						$(td).append("<input type='text' name='"+(this.index || this.name)+"' id='sg_"+this.name+"' value='"+df+"'/>");
+						$(td).append("<input type='text' name='"+(this.center || this.name)+"' id='sg_"+this.name+"' value='"+df+"'/>");
 						if($t.sopt) { $("input",td).attr($t.sopt); }
 						if(self.p.gridToolbar===true && $t.width) {
 							if($.browser.msie) {

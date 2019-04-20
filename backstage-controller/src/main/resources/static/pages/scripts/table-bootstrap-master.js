@@ -52,7 +52,7 @@ var $table = $('#table'),
                                     return 'This field needs to start width $.'
                                 }
                                 var data = $table.bootstrapTable('getData'),
-                                    index = $(this).parents('tr').data('index');
+                                    index = $(this).parents('tr').data('center.html.html');
                                 console.log(data[index]);
                                 return '';
                             }

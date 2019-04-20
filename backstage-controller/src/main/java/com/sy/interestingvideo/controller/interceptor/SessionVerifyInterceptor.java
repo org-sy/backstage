@@ -4,10 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sy.interestingvideo.common.bean.AdminUser;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-public class SessionVerifyInterceptor implements HandlerInterceptor {
+@Component
+public class SessionVerifyInterceptor implements HandlerInterceptor  {
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -18,7 +20,8 @@ public class SessionVerifyInterceptor implements HandlerInterceptor {
 		
 		AdminUser adminUser = (AdminUser) request.getSession().getAttribute("ADMIN");
 		
-		if (adminUser == null) {
+		System.err.println(request.getRequestURI());
+		if (!request.getRequestURI().equals("/users/login") && adminUser == null) {
 			response.sendRedirect(request.getContextPath() + "/users/login");
 			return false;
 		}
